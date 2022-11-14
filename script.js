@@ -13,5 +13,16 @@ async function getCountries() {
 
   return countries;
 }
-const allCountries = await getCountries();
+
+function shuffleArray(array) {
+  //TODO: Shuffle the array and return it
+  return array;
+}
+
+let allCountries = await getCountries();
+
+//TODO: Shuffle the gameCountries
+let gameCountries = shuffleArray([...allCountries]);
+
 console.log(allCountries);
+console.log(gameContries);
