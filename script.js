@@ -25,4 +25,4 @@ let allCountries = await getCountries();
 let gameCountries = shuffleArray([...allCountries]);
 
 console.log(allCountries);
-console.log(gameContries);
+console.log(gameCountries);
