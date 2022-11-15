@@ -1,4 +1,5 @@
 // DOM elements
+const containerEl = document.getElementById("container");
 
 // State
 let allCountries = [];
@@ -27,6 +28,12 @@ function shuffleArray(array) {
   return array;
 }
 
+function getFlagOptions(correctCountry) {
+  //TODO: Real wrong, random, answers
+  const flagOptions = [correctCountry, "A", "B", "C"];
+  return flagOptions;
+}
+
 async function startGame() {
   allCountries = await getCountries();
 
@@ -38,6 +45,7 @@ async function startGame() {
 
   console.log(allCountries);
   console.log(countriesLeft);
+
   pickAFlag();
 }
 
@@ -48,14 +56,19 @@ function pickAFlag() {
   shuffleArray(flagOptions);
   console.log(flagOptions);
 
+  //Render to the DOM
+  //The flag
+  containerEl.innerHTML = "";
+  const flagEl = document.createElement("img");
+  flagEl.src = correctCountry.flag;
+  flagEl.classList.add("flag");
+  containerEl.append(flagEl);
+
+  //The buttons
   for (let flagOption of flagOptions) {
     //TODO: Render button to the DOM, instead of log to console
     console.log(flagOption);
   }
 }
-function getFlagOptions(correctCountry) {
-  //TODO: Real wrong, random, answers
-  const flagOptions = [correctCountry, "A", "B", "C"];
-  return flagOptions;
-}
+
 startGame();
