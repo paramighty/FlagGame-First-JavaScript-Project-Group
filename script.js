@@ -38,9 +38,24 @@ async function startGame() {
 
   console.log(allCountries);
   console.log(countriesLeft);
+  pickAFlag();
 }
 
 function pickAFlag() {
-  console.log("pickAFlag");
+  let correctCountry = countriesLeft.pop();
+  console.log(correctCountry);
+  const flagOptions = getFlagOptions(correctCountry.name);
+  shuffleArray(flagOptions);
+  console.log(flagOptions);
+
+  for (let flagOption of flagOptions) {
+    //TODO: Render button to the DOM, instead of log to console
+    console.log(flagOption);
+  }
+}
+function getFlagOptions(correctCountry) {
+  //TODO: Real wrong, random, answers
+  const flagOptions = [correctCountry, "A", "B", "C"];
+  return flagOptions;
 }
 startGame();
