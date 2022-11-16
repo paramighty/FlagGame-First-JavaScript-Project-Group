@@ -52,13 +52,14 @@ async function startGame() {
 // Function 4:
 function pickAFlag() {
   let correctCountry = countriesLeft.pop(); //copied API data's last set getting removed
-  console.log(correctCountry); //Just France. One country taht is
+  console.log(correctCountry); //Just France. One country that is correct
 
   const flagOptions = getFlagOptions(correctCountry.name);
   shuffleArray(flagOptions);
   console.log(flagOptions);
 
   for (let flagOption of flagOptions) {
+    //this is just going thru the four values we got from flagOptions
     //For every flagOption(element) in the flagOptions(iterable),run console.log
     //TODO: Render button to the DOM, instead of log to console
     console.log(flagOption); //For 'for..of', console.log will happen with element and so in this case flgOption
