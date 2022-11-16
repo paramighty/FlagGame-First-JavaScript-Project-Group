@@ -14,8 +14,9 @@ async function getCountries() {
   const res = await fetch(apiCall); //This returns a promise
   const data = await res.json(); //This returns response by parsing it as JSON
 
-  let countries = []; // creating an array. What is the point of this array though?
+  let countries = []; // creating a new array. What is the point of this array though?
   for (let country of data) {
+    //Why are we looping through the array?
     countries.push({
       //why push here?
       name: country.name.common, //are we creating key to objects? why?
@@ -51,7 +52,7 @@ async function startGame() {
 // Function 4:
 function pickAFlag() {
   let correctCountry = countriesLeft.pop(); //copied API data's last set getting removed
-  console.log(correctCountry);
+  console.log(correctCountry); //Just France. One country taht is
 
   const flagOptions = getFlagOptions(correctCountry.name);
   shuffleArray(flagOptions);
