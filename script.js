@@ -23,8 +23,16 @@ async function getCountries() {
 }
 
 function shuffleArray(array) {
-  //TODO: Shuffle the array and return it
-  return array;
+  const newArray = [...array];
+  const length = newArray.length;
+  for (let start = 0; start < length; start++) {
+    const randomPosition = Math.floor(
+      (newArray.length - start) * Math.random()
+    );
+    const randomItem = newArray.splice(randomPosition, 1);
+    newArray.push(...randomItem);
+  }
+  return newArray;
 }
 
 async function startGame() {
@@ -34,7 +42,7 @@ async function startGame() {
   countriesLeft = [...allCountries]; //FYI: read up about "spread operator" (...) if you wonder about this line
 
   //Shuffle the gameCountries array
-  shuffleArray(countriesLeft);
+  countriesLeft = shuffleArray(countriesLeft);
 
   console.log(allCountries);
   console.log(countriesLeft);
@@ -44,8 +52,8 @@ async function startGame() {
 function pickAFlag() {
   let correctCountry = countriesLeft.pop();
   console.log(correctCountry);
-  const flagOptions = getFlagOptions(correctCountry.name);
-  shuffleArray(flagOptions);
+  let flagOptions = getFlagOptions(correctCountry.name);
+  flagOptions = shuffleArray(flagOptions);
   console.log(flagOptions);
 
   //The buttons
