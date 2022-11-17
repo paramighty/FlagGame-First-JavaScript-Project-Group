@@ -112,11 +112,65 @@ function pickAFlag() {
   containerEl.append(flagEl);
 
   //The buttons
+  const optionButtonsContainerEl = document.createElement("div");
+  optionButtonsContainerEl.id = "options-container";
+
   for (let flagOption of flagOptions) {
     const optionButtonEl = document.createElement("button");
+    optionButtonEl.classList.add("button-option");
+
     optionButtonEl.innerHTML = flagOption;
-    containerEl.append(optionButtonEl);
+
+    // Logic for when button is clicked
+    optionButtonEl.addEventListener("click", (e) => {
+      const clickedOptionButtonEl = e.target;
+
+      // Disable the clicked button to prevent it from being clicked again
+      clickedOptionButtonEl.disabled = true;
+
+      //check if the answer is correct or wrong and style the clicked button accordingly
+      if (flagOption === correctCountry.name) {
+        //C orrect answer
+        console.log("CORRECT!");
+        clickedOptionButtonEl.classList.add("button-option--correct");
+      } else {
+        // Wrong answer
+        console.log("WRONG!");
+        clickedOptionButtonEl.classList.add("button-option--wrong");
+      }
+
+      // Style the other buttons accordingly by looping over the children of
+      // optionButtonsContainerEl.
+      for (let otherOptionButtonEl of optionButtonsContainerEl.children) {
+        // if the current button is the same as the clicked button we don't
+        // want to do anything, because we have already styled the clicked button.
+        // so, then we simply 'continue'. Continue means SKIP to next iteration of the loop
+        if (otherOptionButtonEl === clickedOptionButtonEl) {
+          continue;
+        }
+
+        // Disable the current "other button" to prevent it from being clicked again
+        otherOptionButtonEl.disabled = true;
+
+        // if the current "other button" is the correct one (user clicked the wrong button),
+        // let's color the button GREEN
+        if (otherOptionButtonEl.textContent === correctCountry.name) {
+          otherOptionButtonEl.classList.add("button-option--correct");
+        } else {
+          // else, make it look "inactive"
+          otherOptionButtonEl.classList.add("button-option--inactive");
+        }
+      }
+
+      //ask next question, this is basically "the game loop"
+      setTimeout(pickAFlag, 1000);
+    });
+
+    optionButtonsContainerEl.append(optionButtonEl);
   }
+
+  //append buttons container to the main container
+  containerEl.append(optionButtonsContainerEl);
 }
 
 startGame();
