@@ -68,7 +68,7 @@ function getFlagOptions(correctCountry) {
     // basically means:
     // "While the variable randomCountry is NOT empty OR the value of
     // randomCountry is already in [flagOptions] please give us a new random country"
-    while (!randomCountry || flagOptions.includes(randomCountry)) {
+    while (!randomCountry || flagOptions.includes(randomCountry.name)) {
       //Staffan: I created a new getRandomItem() function.
       //This functionality could have been written inline here,
       // but it is probably cleaner to do it like this
