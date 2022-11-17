@@ -113,7 +113,9 @@ function pickAFlag() {
 
   //The buttons
   for (let flagOption of flagOptions) {
-    containerEl.innerHTML += "<button>" + flagOption + "</button>";
+    const optionButtonEl = document.createElement("button");
+    optionButtonEl.innerHTML = flagOption;
+    containerEl.append(optionButtonEl);
   }
 }
 
