@@ -48,11 +48,13 @@ function pickAFlag() {
   shuffleArray(flagOptions);
   console.log(flagOptions);
 
+  //The buttons
   for (let flagOption of flagOptions) {
-    //TODO: Render button to the DOM, instead of log to console
-    console.log(flagOption);
+    document.getElementById("container").innerHTML +=
+      "<button>" + flagOption + "</button>";
   }
 }
+
 function getFlagOptions(correctCountry) {
   //TODO: Real wrong, random, answers
   const flagOptions = [correctCountry, "A", "B", "C"];
