@@ -14,10 +14,13 @@ async function getCountries() {
 
   let countries = [];
   for (let country of data) {
-    countries.push({
-      name: country.name.common,
-      flag: country.flags.svg,
-    });
+    const name =
+      country.name.common === "Bangladesh"
+        ? "Green Japan"
+        : country.name.common;
+    const flag = country.flags.svg;
+
+    countries.push({ name, flag });
   }
 
   return countries;
