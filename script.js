@@ -63,9 +63,49 @@ function pickAFlag() {
   }
 }
 
+function getRandomItem(arr) {
+  // @ Marcin: This is basically exactly your code, with some fixed typos
+
+  // get random index value
+  const randomIndex = Math.floor(Math.random() * arr.length);
+
+  // get random item
+  const item = arr[randomIndex];
+
+  return item;
+}
+
 function getFlagOptions(correctCountry) {
-  //TODO: Real wrong, random, answers
-  const flagOptions = [correctCountry, "A", "B", "C"];
+  //set total numbers of options/buttons
+  const numberOfOptions = 5;
+
+  //add the correct option to our options
+  const flagOptions = [correctCountry];
+
+  //loop to add random countries to our options.
+  for (let i = 0; i < numberOfOptions - 1; i++) {
+    let randomCountry = "";
+
+    // this while loop makes sure that the picked random country is not already in [flagOptions]
+    // in plain language:
+    // while (!randomCountry || flagOptions.includes(randomCountry)) {
+    // basically means:
+    // "While the variable randomCountry is NOT empty OR the value of
+    // randomCountry is already in [flagOptions] please give us a new random country"
+    while (!randomCountry || flagOptions.includes(randomCountry)) {
+      //Staffan: I created a new getRandomItem() function.
+      //This functionality could have been written inline here,
+      // but it is probably cleaner to do it like this
+      randomCountry = getRandomItem(allCountries);
+    }
+
+    //all good, we've made sure randomCountry === a unique country, then simply
+    // push it to the [flagOptions]
+    flagOptions.push(randomCountry.name);
+  }
+
+  //after loop is done, return [flagOptions]
   return flagOptions;
 }
+
 startGame();
