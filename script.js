@@ -1,4 +1,5 @@
 // DOM elements
+const containerEl = document.getElementById("container");
 
 // State
 let allCountries = [];
@@ -33,34 +34,6 @@ function shuffleArray(array) {
     newArray.push(...randomItem);
   }
   return newArray;
-}
-
-async function startGame() {
-  allCountries = await getCountries();
-
-  //Copy the countries array
-  countriesLeft = [...allCountries]; //FYI: read up about "spread operator" (...) if you wonder about this line
-
-  //Shuffle the gameCountries array
-  countriesLeft = shuffleArray(countriesLeft);
-
-  console.log(allCountries);
-  console.log(countriesLeft);
-  pickAFlag();
-}
-
-function pickAFlag() {
-  let correctCountry = countriesLeft.pop();
-  console.log(correctCountry);
-  let flagOptions = getFlagOptions(correctCountry.name);
-  flagOptions = shuffleArray(flagOptions);
-  console.log(flagOptions);
-
-  //The buttons
-  for (let flagOption of flagOptions) {
-    document.getElementById("container").innerHTML +=
-      "<button>" + flagOption + "</button>";
-  }
 }
 
 function getRandomItem(arr) {
@@ -106,6 +79,42 @@ function getFlagOptions(correctCountry) {
 
   //after loop is done, return [flagOptions]
   return flagOptions;
+}
+
+async function startGame() {
+  allCountries = await getCountries();
+
+  //Copy the countries array
+  countriesLeft = [...allCountries]; //FYI: read up about "spread operator" (...) if you wonder about this line
+
+  //Shuffle the gameCountries array
+  countriesLeft = shuffleArray(countriesLeft);
+
+  console.log(allCountries);
+  console.log(countriesLeft);
+
+  pickAFlag();
+}
+
+function pickAFlag() {
+  let correctCountry = countriesLeft.pop();
+  console.log(correctCountry);
+  let flagOptions = getFlagOptions(correctCountry.name);
+  flagOptions = shuffleArray(flagOptions);
+  console.log(flagOptions);
+
+  //Render to the DOM
+  //The flag
+  containerEl.innerHTML = "";
+  const flagEl = document.createElement("img");
+  flagEl.src = correctCountry.flag;
+  flagEl.classList.add("flag");
+  containerEl.append(flagEl);
+
+  //The buttons
+  for (let flagOption of flagOptions) {
+    containerEl.innerHTML += "<button>" + flagOption + "</button>";
+  }
 }
 
 startGame();
