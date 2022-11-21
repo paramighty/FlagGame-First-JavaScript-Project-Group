@@ -10,10 +10,12 @@
 }
 
 #currentScore {
+  /* Satta: CurrentScore*/
   display: none;
 }
 
-#timeLeft {
+#timeDisplay {
+  /* Satta: TimeLeft button WIP*/
   display: none;
   padding: 1rem;
   position: fixed;
@@ -26,6 +28,7 @@
 }
 
 #startDiv {
+  /* Satta: Start button*/
   padding: 1rem;
   position: fixed;
   left: 50%;

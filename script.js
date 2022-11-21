@@ -211,6 +211,7 @@ startButton.addEventListener("click", () => {
   document.getElementById("container").style.display = "flex";
   document.getElementById("currentScore").style.display = "block";
   document.getElementById("timeDisplay").style.display = "block";
+  document.getElementById("startButton").style.display = "none";
   console.log(timeLeftFunction());
 });
 
