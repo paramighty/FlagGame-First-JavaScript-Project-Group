@@ -5,7 +5,6 @@ const containerEl = document.getElementById("container");
 let allCountries = [];
 let countriesLeft = [];
 let score = 0;
-let timer = 45;
 
 // Functions
 
@@ -211,20 +210,33 @@ startButton.innerText = "Start Game";
 startButton.addEventListener("click", () => {
   document.getElementById("container").style.display = "flex";
   document.getElementById("currentScore").style.display = "block";
-  document.getElementById("timeLeft").style.display = "block";
+  document.getElementById("timeDisplay").style.display = "block";
+  console.log(timeLeftFunction());
 });
 
 startDiv.appendChild(startButton);
 
-//Satta: Have a timer (WIP)
+//Satta: Have a timer
+let timeLeft = 45;
+let timerInterval;
 
-const divTimeLeft = document.createElement("div");
-divTimeLeft.id = "timeLeft";
+const divTimeDisplay = document.createElement("div");
+divTimeDisplay.id = "timeDisplay";
 const timerText = document.createTextNode("Time Left: 45");
+divTimeDisplay.appendChild(timerText);
+document.body.insertBefore(
+  divTimeDisplay,
+  document.getElementById("container")
+);
 
-setInterval(function () {
-  timer -= 1;
-  document.getElementById("timeleft").innerHTML = timer;
-}, 1000);
-divTimeLeft.appendChild(timerText);
-document.body.insertBefore(divTimeLeft, document.getElementById("container"));
+function timeLeftFunction() {
+  let timeDisplay = document.getElementById("timeDisplay");
+  timerInterval = setInterval(function () {
+    timeLeft -= 1;
+
+    timeDisplay.innerHTML = "Time Left: " + timeLeft;
+    if (timeLeft == 0) {
+      clearInterval(timerInterval);
+    }
+  }, 1000);
+}
