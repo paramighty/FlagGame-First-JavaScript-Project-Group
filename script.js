@@ -238,17 +238,9 @@ function timeLeftFunction() {
     timeDisplay.innerHTML = "Time Left: " + timeLeft;
     if (timeLeft === 0) {
       clearInterval(timerInterval);
-      document.getElementById("container").style.display = "none";
+      document.getElementById("container").style.display = "none"; ////Satta: Connect the timer to ending game.
       document.getElementById("currentScore").style.display = "none";
       document.getElementById("timeDisplay").style.display = "none";
     }
   }, 1000);
 }
-
-//Satta: Connect the timer to ending game.
-
-// let endGame = document.getElementById("#container");
-
-// if (timeLeft == 0) {
-//   endGame.style.display = "none";
-// }
