@@ -9,24 +9,6 @@
   font-size: 16px;
 }
 
-#currentScore {
-  /* Satta: CurrentScore*/
-  display: none;
-}
-
-#timeDisplay {
-  /* Satta: TimeLeft button WIP*/
-  display: none;
-  padding: 1rem;
-  position: fixed;
-  font-size: 50px;
-  left: 100%;
-  top: 4%;
-  translate: -50% -50%;
-  width: 100%;
-  max-width: 600px;
-}
-
 #startDiv {
   /* Satta: Start button*/
   padding: 1rem;
@@ -51,7 +33,7 @@
   translate: -50% -50%;
   width: 100%;
   max-width: 600px;
-  display: none; /* Satta: changed the display to none from flex */
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;

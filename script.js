@@ -4,7 +4,8 @@ const containerEl = document.getElementById("container");
 // State
 let allCountries = [];
 let countriesLeft = [];
-let score = 0;
+let score;
+let timeLeft;
 
 // Functions
 
@@ -98,18 +99,77 @@ function updateScore(newScore) {
   scoreEl.innerHTML = `Score: ${score}`;
 }
 
+function startTimer(gameTime) {
+  //since this is a very "local" function it is fine to declare it inside the startTimer function
+  function renderTimeDisplay() {
+    const timeDisplay = document.getElementById("timeDisplay");
+    timeDisplay.innerHTML = "Time Left: " + timeLeft;
+  }
+
+  timeLeft = gameTime;
+  renderTimeDisplay();
+
+  let timerInterval = setInterval(function () {
+    //@Marcin: This would be a good place for putting a "tick" sound
+
+    timeLeft -= 1;
+    renderTimeDisplay();
+
+    if (timeLeft === 0) {
+      clearInterval(timerInterval);
+      containerEl.innerHTML = "";
+
+      //THIS IS A TEMPORARY "end game" solution:
+      //This should be replaced with any "high score" stuff
+
+      setTimeout(() => {
+        alert("GAME OVER!");
+        showWelcomeScreen();
+      }, 0);
+      //-----
+    }
+  }, 1000);
+}
+
 async function startGame() {
+  //Create DOM elements required by the game
+  containerEl.innerHTML = "";
+
+  //The score
+  const scoreEl = document.createElement("div");
+  scoreEl.id = "currentScore";
+  containerEl.append(scoreEl);
+
+  //The timer
+  const timerEl = document.createElement("div");
+  timerEl.id = "timeDisplay";
+  timerEl.innerHTML = "timer";
+  containerEl.append(timerEl);
+
+  //The flag
+  const flagEl = document.createElement("img");
+  flagEl.id = "flag";
+  flagEl.classList.add("flag");
+  containerEl.append(flagEl);
+
+  //Buttons container
+  const optionButtonsContainerEl = document.createElement("div");
+  optionButtonsContainerEl.id = "options-container";
+  containerEl.append(optionButtonsContainerEl);
+
+  //initialize game state
+  updateScore(0);
   allCountries = await getCountries();
-
-  //Copy the countries array
   countriesLeft = [...allCountries]; //FYI: read up about "spread operator" (...) if you wonder about this line
-
-  //Shuffle the gameCountries array
-  countriesLeft = shuffleArray(countriesLeft);
+  countriesLeft = shuffleArray(countriesLeft); //Shuffle the gameCountries array
 
   console.log(allCountries);
   console.log(countriesLeft);
 
+  //Start the timer
+  startTimer(45);
+
+  //Ask the first question
   pickAFlag();
 }
 
@@ -122,15 +182,14 @@ function pickAFlag() {
 
   //Render to the DOM
   //The flag
-  containerEl.innerHTML = "";
-  const flagEl = document.createElement("img");
+  // containerEl.innerHTML = "";
+
+  const flagEl = document.getElementById("flag");
   flagEl.src = correctCountry.flag;
-  flagEl.classList.add("flag");
-  containerEl.append(flagEl);
 
   //The buttons
-  const optionButtonsContainerEl = document.createElement("div");
-  optionButtonsContainerEl.id = "options-container";
+  const optionButtonsContainerEl = document.getElementById("options-container");
+  optionButtonsContainerEl.innerHTML = "";
 
   for (let flagOption of flagOptions) {
     const optionButtonEl = document.createElement("button");
@@ -188,67 +247,22 @@ function pickAFlag() {
 
     optionButtonsContainerEl.append(optionButtonEl);
   }
-
-  //append buttons container to the main container
-  containerEl.append(optionButtonsContainerEl);
 }
 
-startGame();
+function showWelcomeScreen() {
+  containerEl.innerHTML = "";
 
-//Satta: Have a current score
+  const infoEl = document.createElement("div");
+  infoEl.innerHTML = "Welcome to Green Japan";
+  containerEl.append(infoEl);
 
-const divCurrentScore = document.createElement("div");
-divCurrentScore.id = "currentScore";
-document.body.insertBefore(
-  divCurrentScore,
-  document.getElementById("container")
-);
-document.getElementById("currentScore").style.fontSize = "50px";
-
-updateScore(0);
-
-//Satta: Have a start button
-const startDiv = document.createElement("div");
-startDiv.id = "startDiv";
-document.body.insertBefore(startDiv, divCurrentScore);
-
-const startButton = document.createElement("button");
-startButton.id = "startButton";
-startButton.innerText = "Start Game";
-startButton.addEventListener("click", () => {
-  document.getElementById("container").style.display = "flex";
-  document.getElementById("currentScore").style.display = "block";
-  document.getElementById("timeDisplay").style.display = "block";
-  document.getElementById("startButton").style.display = "none";
-  console.log(timeLeftFunction());
-});
-
-startDiv.appendChild(startButton);
-
-//Satta: Have a timer
-let timeLeft = 45;
-let timerInterval;
-
-const divTimeDisplay = document.createElement("div");
-divTimeDisplay.id = "timeDisplay";
-const timerText = document.createTextNode("Time Left: 45");
-divTimeDisplay.appendChild(timerText);
-document.body.insertBefore(
-  divTimeDisplay,
-  document.getElementById("container")
-);
-
-function timeLeftFunction() {
-  let timeDisplay = document.getElementById("timeDisplay");
-  timerInterval = setInterval(function () {
-    timeLeft -= 1;
-
-    timeDisplay.innerHTML = "Time Left: " + timeLeft;
-    if (timeLeft === 0) {
-      clearInterval(timerInterval);
-      document.getElementById("container").style.display = "none"; ////Satta: Connect the timer to ending game.
-      document.getElementById("currentScore").style.display = "none";
-      document.getElementById("timeDisplay").style.display = "none";
-    }
-  }, 1000);
+  const startButtonEl = document.createElement("button");
+  startButtonEl.id = "startButton";
+  startButtonEl.innerText = "Start Game";
+  startButtonEl.addEventListener("click", () => {
+    startGame();
+  });
+  containerEl.append(startButtonEl);
 }
+
+showWelcomeScreen();
