@@ -1,3 +1,5 @@
+import { mathHelpers } from "./mathHelpers.js";
+
 // DOM elements
 const containerEl = document.getElementById("container");
 
@@ -56,6 +58,12 @@ function getRandomItem(arr) {
   return item;
 }
 
+function asyncTimeout(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
 function getFlagOptions(correctCountry) {
   //set total numbers of options/buttons
   const numberOfOptions = 5;
@@ -97,6 +105,48 @@ function updateScore(newScore) {
   //update DOM
   const scoreEl = document.getElementById("currentScore");
   scoreEl.innerHTML = `Score: ${score}`;
+}
+
+async function flagAnimation(flagOptions, flagsContainerEl) {
+  flagsContainerEl;
+
+  for (let [i, flagOption] of flagOptions.entries()) {
+    const flagEl = document.createElement("img");
+    flagEl.id = "flag" + i;
+    flagEl.classList.add("flag");
+    flagEl.classList.add("hidden");
+    flagEl.src = flagOption.flag;
+    await flagEl.decode();
+    flagsContainerEl.append(flagEl);
+  }
+
+  const animTimeMs = 1000;
+  const startTime = Date.now();
+
+  let animProgress = (Date.now() - startTime) / animTimeMs;
+  let prevStep = Date.now();
+
+  let flagIndex = 0;
+  while (animProgress < 1) {
+    console.log("time:", Date.now() - prevStep);
+    prevStep = Date.now();
+
+    animProgress = mathHelpers.clamp(
+      (Date.now() - startTime) / animTimeMs,
+      0,
+      1
+    );
+
+    const timeOut = mathHelpers.curvefit3(animProgress, 20, 50, 200);
+    const flagEl = flagsContainerEl.children[flagIndex % flagOptions.length];
+    console.log(flagEl);
+    flagEl.classList.remove("hidden");
+    await asyncTimeout(timeOut);
+    flagEl.classList.add("hidden");
+    flagIndex++;
+  }
+
+  flagsContainerEl.innerHTML = "";
 }
 
 function startTimer(gameTimeSeconds) {
@@ -168,11 +218,12 @@ async function startGame() {
   timerEl.id = "timeDisplay";
   containerEl.append(timerEl);
 
-  //The flag
-  const flagEl = document.createElement("img");
-  flagEl.id = "flag";
-  flagEl.classList.add("flag");
-  containerEl.append(flagEl);
+  //The flag container
+
+  const flagsContainerEl = document.createElement("div");
+  flagsContainerEl.id = "flags-container";
+  flagsContainerEl.classList.add("flags-container");
+  containerEl.append(flagsContainerEl);
 
   //Buttons container
   const optionButtonsContainerEl = document.createElement("div");
@@ -195,7 +246,7 @@ async function startGame() {
   pickAFlag();
 }
 
-function pickAFlag() {
+async function pickAFlag() {
   let correctCountry = countriesLeft.pop();
   console.log(correctCountry);
   let flagOptions = getFlagOptions(correctCountry);
@@ -203,16 +254,22 @@ function pickAFlag() {
   console.log(flagOptions);
 
   //Render to the DOM
+
   //The flag
-  // containerEl.innerHTML = "";
-
-  const flagEl = document.getElementById("flag");
-  flagEl.src = correctCountry.flag;
-
-  //The buttons
+  const flagsContainerEl = document.getElementById("flags-container");
+  flagsContainerEl.innerHTML = "";
   const optionButtonsContainerEl = document.getElementById("options-container");
   optionButtonsContainerEl.innerHTML = "";
 
+  await flagAnimation(flagOptions, flagsContainerEl);
+
+  const flagEl = document.createElement("img");
+  flagEl.id = "flag";
+  flagEl.classList.add("flag");
+  flagEl.src = correctCountry.flag;
+  flagsContainerEl.append(flagEl);
+
+  //The buttons
   for (let flagOption of flagOptions) {
     const optionButtonEl = document.createElement("button");
     optionButtonEl.classList.add("button-option");

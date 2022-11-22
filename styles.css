@@ -33,10 +33,10 @@
   translate: -50% -50%;
   width: 100%;
   max-width: 600px;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
 }
 
 #timeDisplay {
@@ -57,10 +57,18 @@
   background-color: var(--progress-color);
 }
 
-.flag {
-  padding: 2rem;
+.flags-container {
+  /* display: flex; */
+  position: relative;
   height: 20rem;
   width: 100%;
+}
+
+.flag {
+  padding: 2rem;
+  position: absolute;
+  height: inherit;
+  width: inherit;
   object-fit: contain;
 }
 
@@ -105,4 +113,8 @@
 
 .button-option--inactive {
   opacity: 0.2;
+}
+
+.hidden {
+  visibility: hidden;
 }
