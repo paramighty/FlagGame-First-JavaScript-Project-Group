@@ -73,7 +73,7 @@ function getFlagOptions(correctCountry) {
     // basically means:
     // "While the variable randomCountry is NOT empty OR the value of
     // randomCountry is already in [flagOptions] please give us a new random country"
-    while (!randomCountry || flagOptions.includes(randomCountry.name)) {
+    while (!randomCountry || flagOptions.includes(randomCountry)) {
       //Staffan: I created a new getRandomItem() function.
       //This functionality could have been written inline here,
       // but it is probably cleaner to do it like this
@@ -82,7 +82,7 @@ function getFlagOptions(correctCountry) {
 
     //all good, we've made sure randomCountry === a unique country, then simply
     // push it to the [flagOptions]
-    flagOptions.push(randomCountry.name);
+    flagOptions.push(randomCountry);
   }
 
   //after loop is done, return [flagOptions]
@@ -198,7 +198,7 @@ async function startGame() {
 function pickAFlag() {
   let correctCountry = countriesLeft.pop();
   console.log(correctCountry);
-  let flagOptions = getFlagOptions(correctCountry.name);
+  let flagOptions = getFlagOptions(correctCountry);
   flagOptions = shuffleArray(flagOptions);
   console.log(flagOptions);
 
@@ -217,7 +217,7 @@ function pickAFlag() {
     const optionButtonEl = document.createElement("button");
     optionButtonEl.classList.add("button-option");
 
-    optionButtonEl.innerHTML = flagOption; //Satta: Does this create 4 options?
+    optionButtonEl.innerHTML = flagOption.name; //Satta: Does this create 4 options?
 
     // Logic for when button is clicked
     optionButtonEl.addEventListener("click", (e) => {
@@ -227,7 +227,7 @@ function pickAFlag() {
       clickedOptionButtonEl.disabled = true;
 
       //check if the answer is correct or wrong and style the clicked button accordingly
-      if (flagOption === correctCountry.name) {
+      if (flagOption.name === correctCountry.name) {
         //C orrect answer
         console.log("CORRECT!");
 
