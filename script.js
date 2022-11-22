@@ -88,6 +88,16 @@ function getFlagOptions(correctCountry) {
   return flagOptions;
 }
 
+function updateScore(newScore) {
+  console.log("newScore", newScore);
+  //update "score" in "state"
+  score = newScore;
+
+  //update DOM
+  const scoreEl = document.getElementById("currentScore");
+  scoreEl.innerHTML = `Score: ${score}`;
+}
+
 async function startGame() {
   allCountries = await getCountries();
 
@@ -141,9 +151,8 @@ function pickAFlag() {
         console.log("CORRECT!");
 
         clickedOptionButtonEl.classList.add("button-option--correct");
-        score += 1;
-        document.getElementById("currentScore").innerHTML =
-          "Total Score: " + score;
+
+        updateScore(++score);
       } else {
         // Wrong answer
         console.log("WRONG!");
@@ -190,14 +199,13 @@ startGame();
 
 const divCurrentScore = document.createElement("div");
 divCurrentScore.id = "currentScore";
-const scoreText = document.createTextNode("Total Score: 0");
-
-divCurrentScore.appendChild(scoreText);
 document.body.insertBefore(
   divCurrentScore,
   document.getElementById("container")
 );
 document.getElementById("currentScore").style.fontSize = "50px";
+
+updateScore(0);
 
 //Satta: Have a start button
 const startDiv = document.createElement("div");
