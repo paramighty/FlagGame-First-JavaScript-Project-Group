@@ -4,20 +4,23 @@ const containerEl = document.getElementById("container");
 // State
 let allCountries = [];
 let countriesLeft = [];
+let score = 0;
 
 // Functions
 
 async function getCountries() {
+  //allcountries = getCountries
   const apiCall = "https://restcountries.com/v3.1/all?fields=name,flags";
   const res = await fetch(apiCall);
   const data = await res.json();
+  console.log(data);
 
   let countries = [];
   for (let country of data) {
     const name =
       country.name.common === "Bangladesh"
         ? "Green Japan"
-        : country.name.common;
+        : country.name.common; //if and else's modern version
     const flag = country.flags.svg;
 
     countries.push({ name, flag });
@@ -27,14 +30,15 @@ async function getCountries() {
 }
 
 function shuffleArray(array) {
+  //Satta: why are we shuffling array??Unclear about the point of this function
   const newArray = [...array];
   const length = newArray.length;
   for (let start = 0; start < length; start++) {
     const randomPosition = Math.floor(
       (newArray.length - start) * Math.random()
     );
-    const randomItem = newArray.splice(randomPosition, 1);
-    newArray.push(...randomItem);
+    const randomItem = newArray.splice(randomPosition, 1); //
+    newArray.push(...randomItem); //Satta: Not clear what is happening here
   }
   return newArray;
 }
@@ -56,7 +60,7 @@ function getFlagOptions(correctCountry) {
   const numberOfOptions = 5;
 
   //add the correct option to our options
-  const flagOptions = [correctCountry];
+  const flagOptions = [correctCountry]; //correct option to our options
 
   //loop to add random countries to our options.
   for (let i = 0; i < numberOfOptions - 1; i++) {
@@ -122,11 +126,11 @@ function pickAFlag() {
     const optionButtonEl = document.createElement("button");
     optionButtonEl.classList.add("button-option");
 
-    optionButtonEl.innerHTML = flagOption;
+    optionButtonEl.innerHTML = flagOption; //Satta: Does this create 4 options?
 
     // Logic for when button is clicked
     optionButtonEl.addEventListener("click", (e) => {
-      const clickedOptionButtonEl = e.target;
+      const clickedOptionButtonEl = e.target; //What does target do?
 
       // Disable the clicked button to prevent it from being clicked again
       clickedOptionButtonEl.disabled = true;
@@ -135,7 +139,11 @@ function pickAFlag() {
       if (flagOption === correctCountry.name) {
         //C orrect answer
         console.log("CORRECT!");
+
         clickedOptionButtonEl.classList.add("button-option--correct");
+        score += 1;
+        document.getElementById("currentScore").innerHTML =
+          "Total Score: " + score;
       } else {
         // Wrong answer
         console.log("WRONG!");
@@ -177,3 +185,62 @@ function pickAFlag() {
 }
 
 startGame();
+
+//Satta: Have a current score
+
+const divCurrentScore = document.createElement("div");
+divCurrentScore.id = "currentScore";
+const scoreText = document.createTextNode("Total Score: 0");
+
+divCurrentScore.appendChild(scoreText);
+document.body.insertBefore(
+  divCurrentScore,
+  document.getElementById("container")
+);
+document.getElementById("currentScore").style.fontSize = "50px";
+
+//Satta: Have a start button
+const startDiv = document.createElement("div");
+startDiv.id = "startDiv";
+document.body.insertBefore(startDiv, divCurrentScore);
+
+const startButton = document.createElement("button");
+startButton.id = "startButton";
+startButton.innerText = "Start Game";
+startButton.addEventListener("click", () => {
+  document.getElementById("container").style.display = "flex";
+  document.getElementById("currentScore").style.display = "block";
+  document.getElementById("timeDisplay").style.display = "block";
+  document.getElementById("startButton").style.display = "none";
+  console.log(timeLeftFunction());
+});
+
+startDiv.appendChild(startButton);
+
+//Satta: Have a timer
+let timeLeft = 45;
+let timerInterval;
+
+const divTimeDisplay = document.createElement("div");
+divTimeDisplay.id = "timeDisplay";
+const timerText = document.createTextNode("Time Left: 45");
+divTimeDisplay.appendChild(timerText);
+document.body.insertBefore(
+  divTimeDisplay,
+  document.getElementById("container")
+);
+
+function timeLeftFunction() {
+  let timeDisplay = document.getElementById("timeDisplay");
+  timerInterval = setInterval(function () {
+    timeLeft -= 1;
+
+    timeDisplay.innerHTML = "Time Left: " + timeLeft;
+    if (timeLeft === 0) {
+      clearInterval(timerInterval);
+      document.getElementById("container").style.display = "none"; ////Satta: Connect the timer to ending game.
+      document.getElementById("currentScore").style.display = "none";
+      document.getElementById("timeDisplay").style.display = "none";
+    }
+  }, 1000);
+}
