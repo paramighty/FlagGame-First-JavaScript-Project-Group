@@ -5,7 +5,7 @@ const containerEl = document.getElementById("container");
 let allCountries = [];
 let countriesLeft = [];
 let score;
-let timeLeft;
+let timeLeftMs;
 
 // Functions
 
@@ -99,23 +99,34 @@ function updateScore(newScore) {
   scoreEl.innerHTML = `Score: ${score}`;
 }
 
-function startTimer(gameTime) {
+function startTimer(gameTimeSeconds) {
   //since this is a very "local" function it is fine to declare it inside the startTimer function
   function renderTimeDisplay() {
     const timeDisplay = document.getElementById("timeDisplay");
-    timeDisplay.innerHTML = "Time Left: " + timeLeft;
+    const progress = timeLeftMs / timeLeftMsStart;
+    timeDisplay.style.setProperty("--progress", `${progress * 100}%`);
   }
 
-  timeLeft = gameTime;
+  const timeLeftMsStart = gameTimeSeconds * 1000;
+  const startTimeMs = Date.now(); //store the time when game was started
+  timeLeftMs = timeLeftMsStart - (Date.now() - startTimeMs);
+  let timeLeftSeconds = Math.floor(timeLeftMs / 1000);
+
   renderTimeDisplay();
 
   let timerInterval = setInterval(function () {
-    //@Marcin: This would be a good place for putting a "tick" sound
-
-    timeLeft -= 1;
+    timeLeftMs = timeLeftMsStart - (Date.now() - startTimeMs);
     renderTimeDisplay();
 
-    if (timeLeft === 0) {
+    //This for being able to tick the seconds (play sound)
+    let newTimeLeftSeconds = Math.floor(timeLeftMs / 1000);
+    if (newTimeLeftSeconds !== timeLeftSeconds) {
+      //@Marcin: This would be a good place for putting a "tick" sound
+      console.log(timeLeftSeconds);
+      timeLeftSeconds = newTimeLeftSeconds;
+    }
+
+    if (timeLeftMs <= 0) {
       clearInterval(timerInterval);
       containerEl.innerHTML = "";
 
@@ -128,7 +139,7 @@ function startTimer(gameTime) {
       }, 0);
       //-----
     }
-  }, 1000);
+  }, 10);
 }
 
 async function startGame() {
@@ -143,7 +154,6 @@ async function startGame() {
   //The timer
   const timerEl = document.createElement("div");
   timerEl.id = "timeDisplay";
-  timerEl.innerHTML = "timer";
   containerEl.append(timerEl);
 
   //The flag
