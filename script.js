@@ -11,9 +11,7 @@ let timeLeftMs;
 
 async function getCountries() {
   //allcountries = getCountries
-  // const apiCall = "https://restcountries.com/v3.1/all?fields=name,flags";
-  const apiCall =
-    "https://restcountries.com/v3.1/subregion/Northern Europe?fields=name,flags";
+  const apiCall = "https://restcountries.com/v3.1/all?fields=name,flags";
   const res = await fetch(apiCall);
   const data = await res.json();
   console.log(data);
@@ -104,20 +102,11 @@ function updateScore(newScore) {
 function startTimer(gameTimeSeconds) {
   //since this is a very "local" function it is fine to declare it inside the startTimer function
   function renderTimeDisplay() {
-    const defaultColor = "green";
-    const urgentColor = "red";
-
     const timeDisplay = document.getElementById("timeDisplay");
-
     const progress = timeLeftMs / timeLeftMsStart;
     timeDisplay.style.setProperty("--progress", `${progress * 100}%`);
-    timeDisplay.style.setProperty(
-      "--progress-color",
-      timeLeftMs <= urgentTimeMs ? urgentColor : defaultColor
-    );
   }
 
-  const urgentTimeMs = 10000;
   const timeLeftMsStart = gameTimeSeconds * 1000;
   const startTimeMs = Date.now(); //store the time when game was started
   timeLeftMs = timeLeftMsStart - (Date.now() - startTimeMs);
@@ -132,11 +121,8 @@ function startTimer(gameTimeSeconds) {
     //This for being able to tick the seconds (play sound)
     let newTimeLeftSeconds = Math.floor(timeLeftMs / 1000);
     if (newTimeLeftSeconds !== timeLeftSeconds) {
-      if (timeLeftMs <= urgentTimeMs) {
-        //if time left is less than 10 seconds
-        //@Marcin: This would be a good place for putting a "tick" sound
-        console.log(timeLeftSeconds);
-      }
+      //@Marcin: This would be a good place for putting a "tick" sound
+      console.log(timeLeftSeconds);
       timeLeftSeconds = newTimeLeftSeconds;
     }
 

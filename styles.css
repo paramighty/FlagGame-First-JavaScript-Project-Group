@@ -39,24 +39,6 @@
   justify-content: center;
 }
 
-#timeDisplay {
-  --progress: 100%; /* Staffan: This will be updated from JS */
-  --progress-color: green;
-  position: relative;
-  width: 200px;
-  height: 1rem;
-  border: solid black 1px;
-  background-color: none;
-}
-
-#timeDisplay::after {
-  position: absolute;
-  content: "";
-  height: 100%;
-  width: var(--progress);
-  background-color: var(--progress-color);
-}
-
 .flag {
   padding: 2rem;
   height: 20rem;
