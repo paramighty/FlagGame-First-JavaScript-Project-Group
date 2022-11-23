@@ -10,10 +10,7 @@ let timeLeftMs;
 // Functions
 
 async function getCountries() {
-  //allcountries = getCountries;
   const apiCall = "https://restcountries.com/v3.1/all?fields=name,flags";
-  //const apiCall =
-  //  "https://restcountries.com/v3.1/subregion/Northern Europe?fields=name,flags";
   const res = await fetch(apiCall);
   const data = await res.json();
   console.log(data);
