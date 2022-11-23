@@ -120,10 +120,13 @@ button {
   color: #222;
 }
 
-button:hover:not(.button-option:disabled) {
-  /* background-color: aqua; */
+button:hover:not(button:disabled) {
   scale: 1.05;
   text-decoration: underline;
+}
+
+.button-default:disabled {
+  opacity: 0.5;
 }
 
 .button-option {
@@ -141,10 +144,12 @@ button:hover:not(.button-option:disabled) {
   background-color: #0f0;
   scale: 1.05;
   z-index: 100;
+  opacity: 1;
 }
 
 .button-option--wrong {
   background-color: #f00;
+  opacity: 1;
 }
 
 .button-option--inactive {
@@ -153,10 +158,26 @@ button:hover:not(.button-option:disabled) {
 }
 
 .appear-anim {
-  animation: slideInUp; /* referring directly to the animation's @keyframe declaration */
-  animation-duration: 300ms; /* don't forget to set a duration! */
+  animation: slideInUp;
+  animation-duration: 300ms;
 }
 
 .hidden {
   visibility: hidden;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  font-family: unset;
+  font-size: 2rem;
+  padding: 1rem;
+  margin: 2rem;
+}
+
+.score {
+  font-size: 4rem;
 }
