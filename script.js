@@ -249,8 +249,10 @@ async function pickAFlag() {
   let flagOptions = getFlagOptions(correctCountry);
   flagOptions = shuffleArray(flagOptions);
   console.log(flagOptions);
+  let animDelay = 0;
 
   //Render to the DOM
+  const animationClasses = ["appear-anim"];
 
   //The flag
   const flagsContainerEl = document.getElementById("flags-container");
@@ -267,12 +269,16 @@ async function pickAFlag() {
   flagsContainerEl.append(flagEl);
 
   //The buttons
-  const animationClasses = ["animate__animated", "animate__bounceIn"];
 
   for (let [i, flagOption] of flagOptions.entries()) {
     const optionButtonEl = document.createElement("button");
     optionButtonEl.classList.add("button-option");
-    optionButtonEl.classList.add(...animationClasses);
+    optionButtonEl.classList.add("hidden");
+    setTimeout(() => {
+      optionButtonEl.classList.remove("hidden");
+      optionButtonEl.classList.add(...animationClasses);
+    }, animDelay++ * 30);
+
     optionButtonEl.innerHTML = flagOption.name; //Satta: Does this create 4 options?
 
     // Logic for when button is clicked
@@ -325,7 +331,6 @@ async function pickAFlag() {
       setTimeout(pickAFlag, 1000);
     });
 
-    await asyncTimeout(i * 10);
     optionButtonsContainerEl.append(optionButtonEl);
   }
 }

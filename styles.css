@@ -114,7 +114,7 @@ button {
   border: none;
   border-radius: 1rem;
   background-color: #fff;
-  transition: all 100ms ease;
+  transition: all 80ms ease;
   font-size: 2rem;
   font-family: unset;
   color: #222;
@@ -150,6 +150,11 @@ button:hover:not(.button-option:disabled) {
 .button-option--inactive {
   opacity: 0.2;
   scale: 0.7;
+}
+
+.appear-anim {
+  animation: slideInUp; /* referring directly to the animation's @keyframe declaration */
+  animation-duration: 300ms; /* don't forget to set a duration! */
 }
 
 .hidden {
