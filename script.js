@@ -132,7 +132,6 @@ async function flagAnimation(flagOptions, flagsContainerEl) {
 
     const timeOut = mathHelpers.curvefit3(animProgress, 10, 20, 100);
     const flagEl = flagsContainerEl.children[flagIndex % flagOptions.length];
-    console.log(flagEl);
     flagEl.classList.remove("hidden");
     await asyncTimeout(timeOut);
     flagEl.classList.add("hidden");
@@ -140,6 +139,25 @@ async function flagAnimation(flagOptions, flagsContainerEl) {
   }
 
   flagsContainerEl.innerHTML = "";
+}
+
+function calculateScoreToAdd(startTime) {
+  const endTime = Date.now();
+  const bonusTimeMs = 10000;
+  const maxScore = 10000;
+  const middleScore = 100;
+  const minScore = 10;
+
+  const bonusTimeLeftMs = mathHelpers.clamp(
+    bonusTimeMs - (endTime - startTime),
+    0,
+    bonusTimeMs
+  );
+
+  const bonusRatio = bonusTimeLeftMs / bonusTimeMs;
+  return Math.floor(
+    mathHelpers.curvefit3(bonusRatio, minScore, middleScore, maxScore)
+  );
 }
 
 function startTimer(gameTimeSeconds) {
@@ -244,6 +262,8 @@ async function startGame() {
 }
 
 async function pickAFlag() {
+  let bonusStartTime;
+
   let correctCountry = countriesLeft.pop();
   console.log(correctCountry);
   let flagOptions = getFlagOptions(correctCountry);
@@ -271,12 +291,19 @@ async function pickAFlag() {
   //The buttons
 
   for (let [i, flagOption] of flagOptions.entries()) {
+    const isLastEl = i === flagOptions.length - 1;
+
     const optionButtonEl = document.createElement("button");
     optionButtonEl.classList.add("button-option");
     optionButtonEl.classList.add("hidden");
     setTimeout(() => {
       optionButtonEl.classList.remove("hidden");
       optionButtonEl.classList.add(...animationClasses);
+
+      //start the bonus timer when the last element is added
+      if (isLastEl) {
+        bonusStartTime = Date.now();
+      }
     }, animDelay++ * 30);
 
     optionButtonEl.innerHTML = flagOption.name; //Satta: Does this create 4 options?
@@ -296,7 +323,7 @@ async function pickAFlag() {
 
         clickedOptionButtonEl.classList.add("button-option--correct");
 
-        updateScore(++score);
+        updateScore(score + calculateScoreToAdd(bonusStartTime));
       } else {
         // Wrong answer
         console.log("WRONG!");
