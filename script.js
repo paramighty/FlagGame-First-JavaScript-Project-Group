@@ -107,8 +107,6 @@ function updateScore(newScore) {
 }
 
 async function flagAnimation(flagOptions, flagsContainerEl) {
-  flagsContainerEl;
-
   for (let [i, flagOption] of flagOptions.entries()) {
     const flagEl = document.createElement("img");
     flagEl.id = "flag" + i;
@@ -195,8 +193,6 @@ function startTimer(gameTimeSeconds) {
       //This should be replaced with any "high score" stuff
 
       setTimeout(() => {
-        alert("GAME OVER!");
-
         //Gives your score and asks for your name
         localStorage.setItem("mostRecentScore", score);
         return window.location.assign("end.html");
