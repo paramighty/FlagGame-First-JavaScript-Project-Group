@@ -66,7 +66,7 @@ function asyncTimeout(ms) {
 
 function getFlagOptions(correctCountry) {
   //set total numbers of options/buttons
-  const numberOfOptions = 5;
+  const numberOfOptions = 4;
 
   //add the correct option to our options
   const flagOptions = [correctCountry]; //correct option to our options
@@ -120,7 +120,7 @@ async function flagAnimation(flagOptions, flagsContainerEl) {
     flagsContainerEl.append(flagEl);
   }
 
-  const animTimeMs = 1000;
+  const animTimeMs = 500;
   const startTime = Date.now();
 
   let animProgress = (Date.now() - startTime) / animTimeMs;
@@ -208,15 +208,18 @@ async function startGame() {
   //Create DOM elements required by the game
   containerEl.innerHTML = "";
 
-  //The score
+  const headerEl = document.createElement("div");
+  headerEl.id = "header";
+
   const scoreEl = document.createElement("div");
   scoreEl.id = "currentScore";
-  containerEl.append(scoreEl);
+  headerEl.append(scoreEl);
 
-  //The timer
   const timerEl = document.createElement("div");
   timerEl.id = "timeDisplay";
-  containerEl.append(timerEl);
+  headerEl.append(timerEl);
+
+  containerEl.append(headerEl);
 
   //The flag container
 
