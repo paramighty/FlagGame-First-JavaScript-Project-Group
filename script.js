@@ -146,7 +146,7 @@ function startTimer(gameTimeSeconds) {
   //since this is a very "local" function it is fine to declare it inside the startTimer function
   function renderTimeDisplay() {
     const defaultColor = "#eee";
-    const urgentColor = "f00";
+    const urgentColor = "#f00";
 
     const timeDisplay = document.getElementById("timeDisplay");
 
