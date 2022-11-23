@@ -237,7 +237,7 @@ async function startGame() {
   console.log(countriesLeft);
 
   //Start the timer
-  // startTimer(45);
+  startTimer(45);
 
   //Ask the first question
   pickAFlag();
