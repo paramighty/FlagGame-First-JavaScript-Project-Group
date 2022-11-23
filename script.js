@@ -10,10 +10,10 @@ let timeLeftMs;
 // Functions
 
 async function getCountries() {
-  //allcountries = getCountries
-  // const apiCall = "https://restcountries.com/v3.1/all?fields=name,flags";
-  const apiCall =
-    "https://restcountries.com/v3.1/subregion/Northern Europe?fields=name,flags";
+  //allcountries = getCountries;
+  const apiCall = "https://restcountries.com/v3.1/all?fields=name,flags";
+  //const apiCall =
+  //  "https://restcountries.com/v3.1/subregion/Northern Europe?fields=name,flags";
   const res = await fetch(apiCall);
   const data = await res.json();
   console.log(data);
@@ -149,7 +149,10 @@ function startTimer(gameTimeSeconds) {
 
       setTimeout(() => {
         alert("GAME OVER!");
-        showWelcomeScreen();
+
+        //Gives your score and asks for your name
+        localStorage.setItem("mostRecentScore", score);
+        return window.location.assign("end.html");
       }, 0);
       //-----
     }
@@ -191,7 +194,7 @@ async function startGame() {
   console.log(countriesLeft);
 
   //Start the timer
-  startTimer(45);
+  startTimer(5);
 
   //Ask the first question
   pickAFlag();
