@@ -54,23 +54,25 @@
 
 #header {
   width: 100%;
-  height: 3rem;
+  /* height: 5rem; */
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-direction: column;
 }
 
 #currentScore {
-  font-size: 3rem;
+  font-size: 2rem;
+  padding: 0.5rem;
 }
 
 #timeDisplay {
   --progress: 100%; /* Staffan: This will be updated from JS */
-  --progress-color: green;
+  --progress-color: #eee;
   position: relative;
-  width: 200px;
+  width: 100%;
   height: 1rem;
-  background-color: #222;
+  border: var(--progress-color) solid 2px;
 }
 
 #timeDisplay::after {
@@ -90,7 +92,7 @@
 }
 
 .flag {
-  /* padding: 1rem; */
+  padding: 1rem 0;
   position: absolute;
   height: 100%;
   width: 100%;
@@ -103,18 +105,12 @@
   justify-content: center;
   width: 100%;
   height: 30%;
-  gap: 2rem;
+  gap: 1rem;
   flex-wrap: wrap;
 }
 
-.button-option {
-  width: calc(
-    50% - 1rem
-  ); /* Staffan: calc() to compensate for the gap of parent element */
-}
-
 button {
-  padding: 1rem;
+  padding: 2rem;
   border: none;
   border-radius: 1rem;
   background-color: #fff;
@@ -126,7 +122,15 @@ button {
 
 button:hover:not(.button-option:disabled) {
   /* background-color: aqua; */
-  scale: 1.1;
+  scale: 1.05;
+  text-decoration: underline;
+}
+
+.button-option {
+  padding: 0;
+  width: calc(
+    50% - 0.5rem
+  ); /* Staffan: calc() to compensate for the gap of parent element */
 }
 
 .button-option:disabled {
@@ -134,13 +138,13 @@ button:hover:not(.button-option:disabled) {
 }
 
 .button-option--correct {
-  background-color: green;
-  scale: 1.1;
+  background-color: #0f0;
+  scale: 1.05;
   z-index: 100;
 }
 
 .button-option--wrong {
-  background-color: red;
+  background-color: #f00;
 }
 
 .button-option--inactive {

@@ -145,8 +145,8 @@ async function flagAnimation(flagOptions, flagsContainerEl) {
 function startTimer(gameTimeSeconds) {
   //since this is a very "local" function it is fine to declare it inside the startTimer function
   function renderTimeDisplay() {
-    const defaultColor = "green";
-    const urgentColor = "red";
+    const defaultColor = "#eee";
+    const urgentColor = "f00";
 
     const timeDisplay = document.getElementById("timeDisplay");
 
@@ -267,10 +267,12 @@ async function pickAFlag() {
   flagsContainerEl.append(flagEl);
 
   //The buttons
+  const animationClasses = ["animate__animated", "animate__bounceIn"];
+
   for (let [i, flagOption] of flagOptions.entries()) {
     const optionButtonEl = document.createElement("button");
     optionButtonEl.classList.add("button-option");
-    optionButtonEl.classList.add("animate__animated", "animate__bounceIn");
+    optionButtonEl.classList.add(...animationClasses);
     optionButtonEl.innerHTML = flagOption.name; //Satta: Does this create 4 options?
 
     // Logic for when button is clicked
@@ -279,6 +281,7 @@ async function pickAFlag() {
 
       // Disable the clicked button to prevent it from being clicked again
       clickedOptionButtonEl.disabled = true;
+      clickedOptionButtonEl.classList.remove(...animationClasses);
 
       //check if the answer is correct or wrong and style the clicked button accordingly
       if (flagOption.name === correctCountry.name) {
@@ -306,6 +309,7 @@ async function pickAFlag() {
 
         // Disable the current "other button" to prevent it from being clicked again
         otherOptionButtonEl.disabled = true;
+        otherOptionButtonEl.classList.remove(...animationClasses);
 
         // if the current "other button" is the correct one (user clicked the wrong button),
         // let's color the button GREEN
