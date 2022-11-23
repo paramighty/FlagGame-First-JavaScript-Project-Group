@@ -119,7 +119,7 @@ async function flagAnimation(flagOptions, flagsContainerEl) {
     flagsContainerEl.append(flagEl);
   }
 
-  const animTimeMs = 500;
+  const animTimeMs = 300;
   const startTime = Date.now();
 
   let animProgress = (Date.now() - startTime) / animTimeMs;
@@ -136,7 +136,7 @@ async function flagAnimation(flagOptions, flagsContainerEl) {
       1
     );
 
-    const timeOut = mathHelpers.curvefit3(animProgress, 20, 50, 200);
+    const timeOut = mathHelpers.curvefit3(animProgress, 10, 20, 100);
     const flagEl = flagsContainerEl.children[flagIndex % flagOptions.length];
     console.log(flagEl);
     flagEl.classList.remove("hidden");
@@ -245,7 +245,7 @@ async function startGame() {
   console.log(countriesLeft);
 
   //Start the timer
-  startTimer(5);
+  startTimer(45);
 
   //Ask the first question
   pickAFlag();
