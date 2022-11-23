@@ -121,13 +121,9 @@ async function flagAnimation(flagOptions, flagsContainerEl) {
   const startTime = Date.now();
 
   let animProgress = (Date.now() - startTime) / animTimeMs;
-  let prevStep = Date.now();
 
   let flagIndex = 0;
   while (animProgress < 1) {
-    console.log("time:", Date.now() - prevStep);
-    prevStep = Date.now();
-
     animProgress = mathHelpers.clamp(
       (Date.now() - startTime) / animTimeMs,
       0,
