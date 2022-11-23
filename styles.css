@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Shrikhand&display=swap");
+
 * {
   margin: 0;
   padding: 0;
@@ -7,6 +9,9 @@
 :root {
   /* background-color: salmon; */
   font-size: 16px;
+  font-family: "Fira Code", monospace;
+  background-color: #222;
+  color: #eee;
 }
 
 #startDiv {
@@ -38,14 +43,13 @@
   position: fixed;
 
   width: 100%;
-  max-width: 600px;
+  max-width: 820px;
   height: 100%;
-  max-height: 800px;
+  max-height: 1200px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: salmon;
 }
 
 #header {
@@ -54,6 +58,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+#currentScore {
+  font-size: 3rem;
 }
 
 #timeDisplay {
@@ -82,7 +90,7 @@
 }
 
 .flag {
-  padding: 1rem;
+  /* padding: 1rem; */
   position: absolute;
   height: 100%;
   width: 100%;
@@ -95,37 +103,40 @@
   justify-content: center;
   width: 100%;
   height: 30%;
-  gap: 1rem;
+  gap: 2rem;
   flex-wrap: wrap;
 }
 
 .button-option {
   width: calc(
-    50% - 0.5rem
+    50% - 1rem
   ); /* Staffan: calc() to compensate for the gap of parent element */
 }
 
-#startButton {
-  display: inline-block;
-  padding: 0.35em 1.2em;
-  border: 0.1em solid #ffffff;
-  margin: 0 0.3em 0.3em 0;
-  border-radius: 0.12em;
-  box-sizing: border-box;
-  text-decoration: none;
-  font-weight: 300;
-  font-size: 30px;
-  color: black;
-  text-align: center;
-  transition: all 0.2s;
+button {
+  padding: 1rem;
+  border: none;
+  border-radius: 1rem;
+  background-color: #fff;
+  transition: all 100ms ease;
+  font-size: 2rem;
+  font-family: unset;
+  color: #222;
+}
+
+button:hover:not(.button-option:disabled) {
+  /* background-color: aqua; */
+  scale: 1.1;
 }
 
 .button-option:disabled {
-  color: inherit;
+  color: #222;
 }
 
 .button-option--correct {
   background-color: green;
+  scale: 1.1;
+  z-index: 100;
 }
 
 .button-option--wrong {
@@ -134,6 +145,7 @@
 
 .button-option--inactive {
   opacity: 0.2;
+  scale: 0.7;
 }
 
 .hidden {

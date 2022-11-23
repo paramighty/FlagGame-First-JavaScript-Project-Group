@@ -237,7 +237,7 @@ async function startGame() {
   console.log(countriesLeft);
 
   //Start the timer
-  startTimer(45);
+  // startTimer(45);
 
   //Ask the first question
   pickAFlag();
@@ -267,10 +267,10 @@ async function pickAFlag() {
   flagsContainerEl.append(flagEl);
 
   //The buttons
-  for (let flagOption of flagOptions) {
+  for (let [i, flagOption] of flagOptions.entries()) {
     const optionButtonEl = document.createElement("button");
     optionButtonEl.classList.add("button-option");
-
+    optionButtonEl.classList.add("animate__animated", "animate__bounceIn");
     optionButtonEl.innerHTML = flagOption.name; //Satta: Does this create 4 options?
 
     // Logic for when button is clicked
@@ -321,6 +321,7 @@ async function pickAFlag() {
       setTimeout(pickAFlag, 1000);
     });
 
+    await asyncTimeout(i * 10);
     optionButtonsContainerEl.append(optionButtonEl);
   }
 }
