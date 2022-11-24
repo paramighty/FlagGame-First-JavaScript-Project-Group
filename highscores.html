@@ -1,26 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="highscores.css" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="styles.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
     <title>High Scores</title>
-</head>
+  </head>
 
-<body>
+  <body>
+    <div id="wrapper">
+      <div class="container" id="container">
+        <!-- <h1 id="highScore">High Scores</h1> -->
 
-    <div class="container" id="container">
-        <div id="highScores">
-            <h1 id="highScore">High Scores</h1>
-            <ul id="highScoresList"></ul>
-            <a class="btn" href="/">Go Home, You are drunk!</a>
+        <div id="highscore-list-container" class="highscore-list-container">
+          <div
+            class="highscore-list-container__item highscore-list-container__item--header"
+          >
+            <div class="small-label">Rank</div>
+            <div class="small-label">Name</div>
+            <div class="small-label">Score</div>
+          </div>
         </div>
+        <!-- <ul id="highScoresList"></ul> -->
+
+        <button class="btn" id="playAgainBtn">Go Home, You are drunk!</button>
+      </div>
     </div>
 
-
     <script src="highscores.js"></script>
-</body>
-
+  </body>
 </html>
