@@ -10,7 +10,6 @@ let score;
 let timeLeftMs;
 
 // Functions
-
 async function getCountries() {
   const apiCall = "https://restcountries.com/v3.1/all?fields=name,flags";
   const res = await fetch(apiCall);
