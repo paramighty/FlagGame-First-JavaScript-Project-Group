@@ -215,7 +215,7 @@ button:hover:not(button:disabled) {
 }
 
 .highscore-list-container__item > :nth-child(1) {
-  flex: 0.5;
+  flex: 0.3;
 }
 
 .highscore-list-container__item > :nth-child(2) {
@@ -223,7 +223,7 @@ button:hover:not(button:disabled) {
 }
 
 .highscore-list-container__item > :nth-child(3) {
-  flex: 0.5;
+  flex: 0.3;
 }
 
 .small-label {
