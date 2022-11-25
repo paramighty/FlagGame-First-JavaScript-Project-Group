@@ -365,7 +365,21 @@ function showWelcomeScreen() {
   containerEl.innerHTML = "";
 
   const infoEl = document.createElement("div");
-  infoEl.innerHTML = "Welcome to Green Japan";
+  infoEl.innerHTML = `
+  <div class="text_block ">
+  <p>
+  How many flags can you recognize in 45 seconds? 
+  </p><p>
+  Let’s find out! 
+</p>
+<ul>
+  <li><span class="emoji">⏳</span> 45 seconds</li>
+  <li><span class="emoji">✅</span> 4 options but 1 correct answer</li>
+  <li><span class="emoji">🚀</span> Answer fast to get more points</li>
+  <li><span class="emoji">🏆</span> Chance to win a prize for having the best score in the room!</li>
+</ul>
+</div>
+  `;
   containerEl.append(infoEl);
 
   const startButtonEl = document.createElement("button");
