@@ -229,3 +229,8 @@ button:hover:not(button:disabled) {
 .small-label {
   font-size: 0.7rem;
 }
+
+.emoji {
+  display: inline-block;
+  scale: 1.5;
+}
