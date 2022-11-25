@@ -182,8 +182,9 @@ button:hover:not(button:disabled) {
   padding: 0.5rem;
 }
 
-.score {
+.score--big {
   font-size: 4rem;
+  margin: 1rem;
 }
 
 .highscore-list-container {
