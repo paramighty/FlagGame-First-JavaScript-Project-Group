@@ -373,10 +373,10 @@ function showWelcomeScreen() {
   Let’s find out! 
 </p>
 <ul>
-  <li><span class="emoji">⏳</span> 45 seconds</li>
-  <li><span class="emoji">✅</span> 4 options but 1 correct answer</li>
-  <li><span class="emoji">🚀</span> Answer fast to get more points</li>
-  <li><span class="emoji">🏆</span> Chance to win a prize for having the best score in the room!</li>
+  <li><div class="emoji">⏳</div><div>45 seconds</div></li>
+  <li><div class="emoji">✅</div><div>4 options but 1 correct answer</div></li>
+  <li><div class="emoji">🚀</div><div>Answer fast to get more points</div></li>
+  <li><div class="emoji">🏆</div><div>Chance to win a prize for having the best score in the room!</div></li>
 </ul>
 </div>
   `;

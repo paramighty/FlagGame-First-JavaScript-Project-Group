@@ -21,20 +21,20 @@ function getRankIcon(rank) {
 }
 
 for (let [i, score] of highScores.entries()) {
-  let itemClass = ["highscore-list-container__item"];
+  let itemClass = [];
 
   if (score.mostRecent) {
-    itemClass.push("highscore-list-container__item--emphasis");
+    itemClass.push("highscore-list-container--emphasis");
     itemClass.push("animate__animated");
     itemClass.push("animate__tada");
   }
 
   highScoreListContainerEl.innerHTML += `
-  <div class="${itemClass.join(" ")}">
+  <li class="${itemClass.join(" ")}">
     <div>${getRankIcon(i + 1)}</div>
     <div>${score.name}</div>
     <div>${score.score}</div>
-  </div>
+  </li>
   `;
 }
 
