@@ -1,38 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link href="styles.css" rel="stylesheet" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-    />
-    <title>Congratulations</title>
-  </head>
-  <div id="wrapper">
-    <div class="container" id="container">
-      <p>You scored</p>
-      <div class="score--big" id="finalScore"></div>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-      <form class="flex-col">
-        <input
-          class="input"
-          type="text"
-          name="username"
-          id="username"
-          placeholder="Your amazing name"
-        />
-        <button class="button-default" type="submit" id="saveScoreBtn" disabled>
-          Save
-        </button>
-      </form>
-    </div>
+  <link href="styles.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <title>Congratulations</title>
+</head>
+<div id="wrapper">
+  <div class="container" id="container">
+    <p>You scored</p>
+    <div class="score--big" id="finalScore"></div>
+
+    <form class="flex-col">
+      <input class="input" type="text" name="username" id="username" placeholder="Your slackID" />
+      <button class="button-default" type="submit" id="saveScoreBtn" disabled>
+        Save
+      </button>
+    </form>
   </div>
+</div>
 
-  <body>
-    <script src="end.js"></script>
-  </body>
+<body>
+  <script src="end.js"></script>
+</body>
+
 </html>
