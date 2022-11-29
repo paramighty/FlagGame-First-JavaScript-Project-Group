@@ -144,7 +144,7 @@ function calculateScoreToAdd(startTime) {
   const endTime = Date.now();
   const bonusTimeMs = 10000;
   const maxScore = 10000;
-  const middleScore = 100;
+  const middleScore = 1000;
   const minScore = 10;
 
   const bonusTimeLeftMs = mathHelpers.clamp(
@@ -254,7 +254,7 @@ async function startGame() {
   console.log(countriesLeft);
 
   //Start the timer
-  startTimer(45);
+  // startTimer(45);
 
   //Ask the first question
   pickAFlag();
